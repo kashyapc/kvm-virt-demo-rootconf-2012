@@ -1,0 +1,116 @@
+
+*** [1] Check for CPU virtualization extensions***
+
+    Let's start by checking if the machine supports CPU virt extensions. VMX is for Intel,
+    SVM is for AMD:
+
+    # egrep -i 'vmx|svm' /proc/cpuinfo
+    
+    - As root, also, let's run `virt-host-validate qemu` to ensure our machine
+has hardware virt enabled in BIOS and that VMs can be managed by libvirt.
+    
+    # virt-host-validate qemu
+
+
+
+*** [2] Create a Virtual machine: ***
+
+    - There are many different ways. Using graphical tools like virt-manager for
+      interactive installs, and command line tools like virt-install, Oz to do automatic
+      un-attended guest installs.  
+
+     - Disk image types: We could create VMs with two types of disk image
+formats. RAW{fast, robust against power failures}; QCOW2 (versatile -- smaller
+image files, snapshots, encryption)
+
+    - virt-install: When used with right options(--os-type, cache=none) it
+optimizations for guest configuration for better performance(virtio, drivers,
+etc). If you have access to a Fedora tree or any Fedora based distro, you could
+trivially do kickstart based un-attended installations.
+
+    - Oz: Another intersting tool to do auto-guest installs with minimal input.
+It takes an XML file(called TDL-template description language) as input. For ex to create
+an unattended install Fedora 16 JEOS(just enough operating system):
+        # oz-install /path/to/tdl-file  
+    (Discuss the tdl file in short)
+
+
+
+*** [3] 'virsh' operations ***
+    - {nodeinfo}
+    - {list, start, stop, console}
+    - Snapshots --  Snapshot is just a freeze of the OS at a particular point in
+time.
+         - Ex. of an internal snapshot: snapshot-{list, create-as, revert, delete}
+
+    - network: Attach a NIC card - Libvirt provides a default bridge called --
+virbr0 which does NAT by default.
+        - If you need network bridging, we need to explicitly configure it so
+that guests will also be in the same subnet as host
+
+    - Security: show sVirt labels for aprocess and a disk-image. SELinux rules
+are setup so that, a virtual machine (a qemu process) can access files (like
+the disk image, socket) which are labelled with the matching security context,
+specifically, matching category level. This protects a compromised VM from
+accessing another VM from the host.  Ex:
+
+        #root@~$ ls -lZ /var/lib/libvirt/images/rhel6ipa.qcow2 
+        -rw-r--r--. qemu qemu system_u:object_r:svirt_image_t:s0:c263,c274
+        /var/lib/libvirt/images/rhel6ipa.qcow2
+
+        # root@~$ ps -eZ | grep qemu-kvm
+        system_u:system_r:svirt_t:s0:c263,c274 5501 ?  00:04:15 qemu-kvm
+        root@~$ 
+
+        (Notice that the disk image *and* the qemu-kvm process have matching SELinux
+        context, category)
+
+
+
+*** [4] Disk image manipulation -- libguestfs/guestfish ***
+    
+     # guestfish --ro -d f17test -i   (READ-ONLY for LIVE VMs ; --rw for OFFLINE VMs)
+
+     # guestfish --verbose --ro -d f17test -i  (Shows what goes behind the
+scenes when opening a disk image) 
+    
+    - Scripting: Quick walk-through hostname-edit-guest.py which automatically replaces the
+hostname inside a virtual machine using guestfish. (useful for replacing
+hostnames of clones)
+
+    (Note: Very handy to fix broken guests due to SELinux)
+
+*** [4.1] virt-tools based on libguestfs ***
+
+    # virt-ls -R -d f17test /    (List files inside the guest)
+
+    # virt-cat f17test /var/log/messages | grep 'dhclient.*bound to'  (To find IP address
+ of the guest)
+    
+    # virt-edit -d f17test /etc/sysconfig/selinux   (To edit a file inside the guest)
+
+    # virt-df -d f17test -h   (To display free space inside the guest fs)
+
+    # virt-inspector -d f6t1  (To inspect/list applications inside a guest)
+
+
+
+*** [5] A bit about debugging ***
+
+    - When some virsh operation fails, you could set and see LIBVIRT_DEBUG=1
+    - /var/log/libvirt/qemu/GuestName.log
+    - /etc/libvirt/libvirtd.conf
+        - log_level = 1
+        - log_outputs = 1:file:/var/tmp/libvirtd.log
+
+    - Run libvirtd in verbose mode
+        # service libvirtd stop
+        # export LIBVIRT_DEBUG=1 ; libvirtd --verbose
+
+    - For libguestfs:
+        # libguestfs-test-tool
+        # export LIBGUESTFS_TRACE=1
+        # export LIBGUESTFS_DEBUG=1
+
+*** [6] Finish off ***
+

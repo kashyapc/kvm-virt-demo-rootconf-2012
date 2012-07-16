@@ -1,0 +1,46 @@
+Contents of 'ks-with-btrfs.ks' (Create this file in your current directory)
+######################################
+install
+text
+lang en_US.UTF-8
+keyboard us
+rootpw testpwd
+firewall --service=ssh
+authconfig --enableshadow --passalgo=sha512
+selinux --enforcing
+timezone --utc Asia/Kolkata
+bootloader --location=mbr --driveorder=sda  --append="rhgb console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH"
+zerombr
+clearpart --all --initlabel
+autopart --type=btrfs
+
+%packages
+@core
+%end
+
+
+######################################
+
+Then, run the below command:
+######################################
+$ virt-install --connect=qemu:///system \
+    --network=bridge:br0 \
+    --initrd-inject=./ks-with-btrfs.ks \
+    --extra-args="ks=file:/ks-with-btrfs.ks console=tty0 console=ttyS0,115200 root=live:http://dl.fedoraproject.org/pub/alt/stage/17-Beta.RC4/Fedora/x86_64/os/LiveOS/squashfs.img" \
+    --name=f17t1 \
+    --disk /export/vmimgs/f17t1.img,size=20 \
+    --ram 2048 \
+    --vcpus=2 \
+    --check-cpu \
+    --accelerate \
+    --hvm \
+    --os-variant linux
+    --location=http://dl.fedoraproject.org/pub/fedora/linux/development/17/x86_64/os/ \
+    --nographics
+######################################
+#
+#
+#
+#NOTE: To fix the serial console line-break issue, disable the plymouth service -- 
+# By running -- $ ln -s /dev/null /etc/systemd/system/plymouth-start.service
+#

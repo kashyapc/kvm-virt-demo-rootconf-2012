@@ -1,0 +1,289 @@
+[kashyap@moon ~]$ sudo ./qcow2-create-virt-guest.bash  fedora15test x86_64
+Creating domain fedora15test...
+Disk image will be created as  /export/vmimgs/fedora15test.qcow2
+Location of the OS sources http://foo.bar.redhat.com/pub/fedora/linux/releases/15/Fedora/x86_64/os/...
+Formatting '/export/vmimgs/fedora15test.qcow2', fmt=qcow2 size=8589934592 encryption=off cluster_size=65536 preallocation='metadata'
+
+Starting install...
+Retrieving file .treeinfo...                                                                                                                                                               | 3.3 kB     00:00 ... 
+Retrieving file vmlinuz...                                                                                                                                                                 | 7.5 MB     00:00 ... 
+Retrieving file initrd.img...                                                                                                                                                              |  56 MB     00:00 ... 
+Creating domain...                                                                                                                                                                         |    0 B     00:00     
+Connected to domain fedora15test
+Escape character is ^]
+Initializing cgroup subsys cpuset
+Initializing cgroup subsys cpu
+Linux version 2.6.32-203.el6.x86_64 (mockbuild@hs20-bc2-4.build.redhat.com) (gcc version 4.4.5 20110214 (Red Hat 4.4.5-6) (GCC) ) #1 SMP Tue Sep 27 11:36:49 EDT 2011
+Command line: method=http://foo.bar.redhat.com/pub/fedora/15/Server/x86_64/os/ ks=file:/fed-minimal.ks console=tty0 console=ttyS0,115200
+KERNEL supported cpus:
+  Intel GenuineIntel
+  AMD AuthenticAMD
+  Centaur CentaurHauls
+BIOS-provided physical RAM map:
+ BIOS-e820: 0000000000000000 - 000000000009dc00 (usable)
+ BIOS-e820: 000000000009dc00 - 00000000000a0000 (reserved)
+ BIOS-e820: 00000000000f0000 - 0000000000100000 (reserved)
+ BIOS-e820: 0000000000100000 - 000000007fffd000 (usable)
+ BIOS-e820: 000000007fffd000 - 0000000080000000 (reserved)
+ BIOS-e820: 00000000feffc000 - 00000000ff000000 (reserved)
+ BIOS-e820: 00000000fffc0000 - 0000000100000000 (reserved)
+DMI 2.4 present.
+SMBIOS version 2.4 @ 0xFDAB0
+last_pfn = 0x7fffd max_arch_pfn = 0x400000000
+PAT not supported by CPU.
+init_memory_mapping: 0000000000000000-000000007fffd000
+RAMDISK: 7e3be000 - 7ffef65f
+ACPI: RSDP 00000000000fda80 00014 (v00 BOCHS )
+ACPI: RSDT 000000007fffd630 00034 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
+ACPI: FACP 000000007ffffe40 00074 (v01 BOCHS  BXPCFACP 00000001 BXPC 00000001)
+ACPI: DSDT 000000007fffd8a0 02560 (v01   BXPC   BXDSDT 00000001 INTL 20100528)
+ACPI: FACS 000000007ffffe00 00040
+ACPI: SSDT 000000007fffd7a0 000FF (v01 BOCHS  BXPCSSDT 00000001 BXPC 00000001)
+ACPI: APIC 000000007fffd6b0 0007A (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
+ACPI: HPET 000000007fffd670 00038 (v01 BOCHS  BXPCHPET 00000001 BXPC 00000001)
+No NUMA configuration found
+Faking a node at 0000000000000000-000000007fffd000
+Bootmem setup node 0 0000000000000000-000000007fffd000
+  NODE_DATA [000000000000a000 - 000000000003dfff]
+  bootmap [000000000003e000 -  000000000004dfff] pages 10
+(7 early reservations) ==> bootmem [0000000000 - 007fffd000]
+  #0 [0000000000 - 0000001000]   BIOS data page ==> [0000000000 - 0000001000]
+  #1 [0000006000 - 0000008000]       TRAMPOLINE ==> [0000006000 - 0000008000]
+  #2 [0001000000 - 000200c7a4]    TEXT DATA BSS ==> [0001000000 - 000200c7a4]
+  #3 [007e3be000 - 007ffef65f]          RAMDISK ==> [007e3be000 - 007ffef65f]
+  #4 [000009dc00 - 0000100000]    BIOS reserved ==> [000009dc00 - 0000100000]
+  #5 [000200d000 - 000200d079]              BRK ==> [000200d000 - 000200d079]
+  #6 [0000008000 - 000000a000]          PGTABLE ==> [0000008000 - 000000a000]
+found SMP MP-table at [ffff8800000fdad0] fdad0
+kvm-clock: Using msrs 4b564d01 and 4b564d00
+kvm-clock: cpu 0, msr 0:1c1df81, boot clock
+Zone PFN ranges:
+  DMA      0x00000001 -> 0x00001000
+  DMA32    0x00001000 -> 0x00100000
+  Normal   0x00100000 -> 0x00100000
+Movable zone start PFN for each node
+early_node_map[2] active PFN ranges
+    0: 0x00000001 -> 0x0000009d
+    0: 0x00000100 -> 0x0007fffd
+ACPI: PM-Timer IO Port: 0xb008
+ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)
+ACPI: LAPIC (acpi_id[0x01] lapic_id[0x01] enabled)
+ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[0])
+IOAPIC[0]: apic_id 2, version 17, address 0xfec00000, GSI 0-23
+ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+Using ACPI (MADT) for SMP configuration information
+ACPI: HPET id: 0x8086a201 base: 0xfed00000
+SMP: Allowing 2 CPUs, 0 hotplug CPUs
+PM: Registered nosave memory: 000000000009d000 - 000000000009e000
+PM: Registered nosave memory: 000000000009e000 - 00000000000a0000
+PM: Registered nosave memory: 00000000000a0000 - 00000000000f0000
+PM: Registered nosave memory: 00000000000f0000 - 0000000000100000
+Allocating PCI resources starting at 80000000 (gap: 80000000:7effc000)
+Booting paravirtualized kernel on KVM
+NR_CPUS:4096 nr_cpumask_bits:2 nr_cpu_ids:2 nr_node_ids:1
+PERCPU: Embedded 30 pages/cpu @ffff880002200000 s92760 r8192 d21928 u1048576
+pcpu-alloc: s92760 r8192 d21928 u1048576 alloc=1*2097152
+pcpu-alloc: [0] 0 1 
+kvm-clock: cpu 0, msr 0:2215f81, primary cpu clock
+Built 1 zonelists in Node order, mobility grouping on.  Total pages: 516914
+Policy zone: DMA32
+Kernel command line: method=http://foo.bar.redhat.com/pub/fedora/15/Server/x86_64/os/ ks=file:/fed-minimal.ks console=tty0 console=ttyS0,115200
+PID hash table entries: 4096 (order: 3, 32768 bytes)
+Checking aperture...
+No AGP bridge found
+Memory: 2022012k/2097140k available (5080k kernel code, 400k absent, 74728k reserved, 7232k data, 1244k init)
+Hierarchical RCU implementation.
+NR_IRQS:33024 nr_irqs:424
+Console: colour dummy device 80x25
+console [tty0] enabled
+console [ttyS0] enabled
+allocated 16777216 bytes of page_cgroup
+please try 'cgroup_disable=memory' option if you don't want memory cgroups
+HPET: 3 timers in total, 0 timers will be used for per-cpu timer
+Detected 1994.999 MHz processor.
+Calibrating delay loop (skipped) preset value.. 3989.99 BogoMIPS (lpj=1994999)
+pid_max: default: 32768 minimum: 301
+Security Framework initialized
+SELinux:  Initializing.
+Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes)
+Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes)
+Mount-cache hash table entries: 256
+Initializing cgroup subsys ns
+Initializing cgroup subsys cpuacct
+Initializing cgroup subsys memory
+Initializing cgroup subsys devices
+Initializing cgroup subsys freezer
+Initializing cgroup subsys net_cls
+Initializing cgroup subsys blkio
+Initializing cgroup subsys perf_event
+mce: CPU supports 10 MCE banks
+alternatives: switching to unfair spinlock
+ACPI: Core revision 20090903
+ftrace: converting mcount calls to 0f 1f 44 00 00
+ftrace: allocating 20766 entries in 82 pages
+Setting APIC routing to flat
+..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+CPU0: Intel QEMU Virtual CPU version 0.15.0 stepping 03
+Performance Events: unsupported p6 CPU model 2 no PMU driver, software events only.
+NMI watchdog disabled (cpu0): hardware events not enabled
+Booting Node   0, Processors  #1 Ok.
+kvm-clock: cpu 1, msr 0:2315f81, secondary cpu clock
+Brought up 2 CPUs
+Total of 2 processors activated (7979.99 BogoMIPS).
+devtmpfs: initialized
+regulator: core version 0.5
+NET: Registered protocol family 16
+ACPI: bus type pci registered
+PCI: Using configuration type 1 for base access
+mtrr: your CPUs had inconsistent variable MTRR settings
+mtrr: your CPUs had inconsistent MTRRdefType settings
+mtrr: probably your BIOS does not setup all CPUs.
+mtrr: corrected configuration.
+bio: create slab <bio-0> at 0
+ACPI: Interpreter enabled
+ACPI: (supports S0 S3 S4 S5)
+ACPI: Using IOAPIC for interrupt routing
+ACPI: No dock devices found.
+HEST: Table not found.
+ACPI: PCI Root Bridge [PCI0] (0000:00)
+pci 0000:00:01.3: quirk: region b000-b03f claimed by PIIX4 ACPI
+pci 0000:00:01.3: quirk: region b100-b10f claimed by PIIX4 SMB
+ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+ACPI: PCI Interrupt Link [LNKS] (IRQs 9) *0
+vgaarb: loaded
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+PCI: Using ACPI for IRQ routing
+NetLabel: Initializing
+NetLabel:  domain hash size = 128
+NetLabel:  protocols = UNLABELED CIPSOv4
+NetLabel:  unlabeled traffic allowed by default
+hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+hpet0: 3 comparators, 64-bit 100.000000 MHz counter
+Switching to clocksource kvm-clock
+pnp: PnP ACPI init
+ACPI: bus type pnp registered
+pnp: PnP ACPI: found 7 devices
+ACPI: ACPI bus type pnp unregistered
+NET: Registered protocol family 2
+IP route cache hash table entries: 65536 (order: 7, 524288 bytes)
+TCP established hash table entries: 262144 (order: 10, 4194304 bytes)
+TCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
+TCP: Hash tables configured (established 262144 bind 65536)
+TCP reno registered
+NET: Registered protocol family 1
+pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+pci 0000:00:01.0: PIIX3: Enabling Passive Release
+pci 0000:00:01.0: Activating ISA DMA hang workarounds
+Trying to unpack rootfs image as initramfs...
+Freeing initrd memory: 28869k freed
+audit: initializing netlink socket (disabled)
+type=2000 audit(1317984755.730:1): initialized
+HugeTLB registered 2 MB page size, pre-allocated 0 pages
+VFS: Disk quotas dquot_6.5.2
+Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+msgmni has been set to 4005
+alg: No test for stdrng (krng)
+ksign: Installing public key data
+Loading keyring
+- Added public key 30E9791DF947548C
+- User ID: Red Hat, Inc. (Kernel Module GPG key)
+- Added public key D4A26C9CCD09BEDA
+- User ID: Red Hat Enterprise Linux Driver Update Program <secalert@redhat.com>
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 252)
+io scheduler noop registered
+io scheduler anticipatory registered
+io scheduler deadline registered
+io scheduler cfq registered (default)
+pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+pciehp: PCI Express Hot Plug Controller Driver version: 0.4
+acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+acpiphp: Slot [1] registered
+acpiphp: Slot [2] registered
+acpiphp: Slot [3] registered
+acpiphp: Slot [4] registered
+acpiphp: Slot [5] registered
+acpiphp: Slot [6] registered
+acpiphp: Slot [7] registered
+acpiphp: Slot [8] registered
+acpiphp: Slot [9] registered
+acpiphp: Slot [10] registered
+acpiphp: Slot [11] registered
+acpiphp: Slot [12] registered
+acpiphp: Slot [13] registered
+acpiphp: Slot [14] registered
+acpiphp: Slot [15] registered
+acpiphp: Slot [16] registered
+acpiphp: Slot [17] registered
+acpiphp: Slot [18] registered
+acpiphp: Slot [19] registered
+acpiphp: Slot [20] registered
+acpiphp: Slot [21] registered
+acpiphp: Slot [22] registered
+acpiphp: Slot [23] registered
+acpiphp: Slot [24] registered
+acpiphp: Slot [25] registered
+acpiphp: Slot [26] registered
+acpiphp: Slot [27] registered
+acpiphp: Slot [28] registered
+acpiphp: Slot [29] registered
+acpiphp: Slot [30] registered
+acpiphp: Slot [31] registered
+input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+ACPI: Power Button [PWRF]
+processor LNXCPU:00: registered as cooling_device0
+processor LNXCPU:01: registered as cooling_device1
+ERST: Table is not found!
+GHES: HEST is not enabled!
+Non-volatile memory driver v1.3
+Linux agpgart interface v0.103
+crash memory driver: version 1.1
+Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+�serial8250: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+00:05: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+brd: module loaded
+loop: module loaded
+input: Macintosh mouse button emulation as /devices/virtual/input/input1
+Fixed MDIO Bus: probed
+ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+Welcome to Red Hat Enterprise Linux for x86_64
+Welcome to Red Hat Enterprise Linux for x86_64
+
+
+
+
+     ┌─────────────────────┤ Package Installation ├──────────────────────┐
+     │                                                                   │
+     │                                                                   │
+     │                                35%                                │      
+     │                                                                   │      
+     │                  Packages completed: 123 of 396                   │      
+     │                                                                   │      
+     │ Installing vim-common-7.3.315-1.fc15.x86_64 (16 MB)               │      
+     │ The common files needed by any version of the VIM editor          │      
+     │                                                                   │      
+     │                                                                   │
+     │                                                                   │
+     └───────────────────────────────────────────────────────────────────┘
+
+
+
+  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen
+
+
+
+
+
+
+
+

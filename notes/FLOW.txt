@@ -1,0 +1,161 @@
+---------------------------------------------------------------------- 
+Talk --  15 min
+Demo --  20 min 
+Q/A  --  10 min
+----------------------------------------------------------------------
+
+*** Before the talk ***
+
+- cd ~/virt-session/rootconf-talk-2012
+- df -hT to ensure you have enough disk space to create disk images
+- Ensure libvirt xmls are sane, libvirtd is up
+- Ensure all the examples are working, and there is *no* RH sensitive info.
+- Upload talk to fedorapeople.org
+- time guestfish -a /dev/null run (so you have hot cache of libguestfs)
+
+
+*** [0] Start ***
+Good morning. My name is Kashyap Chamarthy. I work for Red Hat's Identity/Security
+engineering group. As part of my test infrastructure, and in general I deploy and play
+around a lot of KVM. Today, I'm going to talk a little bit about KVM based virtualzation.
+Starting with what's Hardware Virtualization and a bit about KVM architecture. And, I'll briefly
+discuss about the management library Libvirt, Libguestfs(the vm disk image manipulation
+tools), followed by a demonstration of some of the tools, and briefly what's coming up
+next.
+
+And then we can have some time for questions.
+
+*** [1] Intro to Hardware Based Virt ***
+
+Intel and AMD started providing Virtualization extensions in CPU around 2005. So, what
+exactly these CPU virt extensions do? They enable a new operating mode called 'guest mode'
+for the processor where a VM can execute instructions directly on the physical machine.
+
+Intel calls it VMX(virtual machine extension) ; AMD -- SVM(secure virtual machine)
+------
+VT-x -- Processor virtualization ; EPT - Memory Virtualization 
+VT-d(Directed I/O) -- Chipset ; Device Isolation ; (I/O performance w/ direct assignment)
+VT-c(Connectivity/Network) -- NIC enhancement w/ VMDq ; SR-IOV 
+------
+
+KVM: Around 2006, KVM was introduced as a loadable kernel module, which turns the linux
+kernel itself into a hypervisor (or VMM). It essentially, exposes a character device node
+/dev/kvm to the user-space. Using this device node, virtual machines can be created, and
+can execute some(non I/O) of the instructions natively on the physical CPU.
+
+One of the neat things with KVM is, it is tightly integrated into linux kernel , and it
+reuses existing Kernel infrastructure like CPU scheduling, Memory management, Power
+management, NUMA, Timer Handling, etc. So, all optimizations to kernel are directly taken
+advantage by KVM. A hypervisor needs all of these anyway. Instead of re-inventing the
+wheel, KVM leverages existing linux kernel features.
+
+So, naturally, KVM's design and development is driven by haradware specifications
+from Intel/AMD.
+
+
+
+*** [2] KVM Architecture diagram *** 
+
+At the bottom of the stack is x86 hardware(either Intel/AMD) with CPU virt extensions.
+Running linux kernel with KVM module, which places the CPU in the 'guest mode' to
+run virtual machines natively on the physical host.
+
+On top of it sits QEMU, stands for Quick EMUlator. KVM itself cannot do everything, to run
+a fully virtualized guest, we need an entire PC like environment. And, we need all the
+devices to be emulated. This is where QEMU fits in, does device emulation. It emulates
+devices like - VGA, mouse/key-board, IDE hard-disks, CD-ROM interface, sound cards,
+Network cards, USB controller, PCI n/w adapter, etc. So, QEMU does I/O hardware emulation.
+
+Also, I should mention that, QEMU also emulates several other CPU architectures like
+s390X, PPC, ARM, etc.  With KVM, the host and guest CPU arch should be the same.
+
+A virtual machine is instantiated as a qemu instance. You could see also see regular
+linux applications(like firefox, etc) there in the picture, because, each VM is just like
+any other regular linux process, meaning, each QEMU instance itself runs as a process. So,
+we can use standard linux process infrastructure tools like top, kill, vmstat to get
+regular monitoring statistics.
+
+
+
+*** [3] Libvirt, Libguestfs and virt-tools ***
+
+*** [3.3] virt-tools stack diagram ***
+
+This is just a different view, where you could see how 'Libvirt' and other virt tools come
+into picture. Libvirt interacts with QEMU and follows best practises for qemu-kvm
+commandline.
+
+
+*** [3.1] Libvirt ***
+
+Libvirt is a hypervisor agnostic virtualization management library. Meaning, it supports
+a variety of hypervisors(like KVM, QEMU, XEN, Vbox, etc..). It uses a client-server
+model, so you can connect to remote hosts(where libvirtd is running) and manage guests. 
+
+You could do all the standard vm-lifecycle and general infrastructure management as well.
+
+- Libvirt uses best practises of qemu-kvm commandline
+- Libvirt security -- It several layers of security. Every qemu instance runs as an
+  un-privileged user(qemu)
+- General guest management
+- virtual-networks; virtual-interfaces
+- storage pools;snapshots
+- CPU Pinning/Memory tuning
+- Attach/Detach devices and network Interfaces
+
+Plenty of data-center and cloud-management softwares -- like virt-manager, aeolusproject,
+oVirt, Openstack, libguestfs, etc
+
+
+
+*** [3.3] Libguestfs/guestfish ***
+
+Libguestfs is a library, scriptable shell tool, to inspect, look inside your virtual
+machine disk images, and edit them without even booting the disks.
+
+     Couple of practical things you could do like:
+     - Fix broken virtual machines (due to SELinux)
+     - View all applications inside the disk image
+     - Resize disk images
+     - Copy out contents from a disk image which is screwed beyond repair and is
+       unbootable
+
+
+*** [4] Demo ***
+
+refer demo-notes.txt
+
+
+
+*** [4.1] Mention about debugging info ***
++ Debugging. Here is some quick info.
+    - When some virsh operation fails, you could set and see LIBVIRT_DEBUG=1
+    - /var/log/libvirt/qemu/GuestName.log
+    - /etc/libvirt/libvirtd.conf
+        - log_level = 1
+        - log_outputs = 1:file:/var/tmp/libvirtd.log
+
+    - Run libvirtd in verbose mode
+        - service libvirtd stop
+        - LIBVIRT_DEBUG=1 libvirtd --verbose
+
+    - export LIBGUESTFS_TRACE=1
+      export LIBGUESTFS_DEBUG=1
+
+*** [5] Upcoming/In the works features  ***
+
+These are some of the features which I find interesting. Some of them already are
+available upstream
+
+- Snapshots
+- Live Migration
+- Virt-sandbox
+- qcow2 (v3)
+- virtio-scsi
+- PCI device assignment enhancements
+- Nested virt
+
+*** [6] Finish Off ***
+
+Here are some references and urls to find more information.
+

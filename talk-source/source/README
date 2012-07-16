@@ -1,0 +1,5 @@
+1] To compile
+    # make
+
+2] To clean-up
+    # make clean

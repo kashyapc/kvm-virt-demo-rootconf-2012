@@ -1,0 +1,14 @@
+<template>
+  <name>f16fromoz</name>
+  <os>
+    <name>Fedora</name>
+    <version>16</version>
+    <arch>x86_64</arch>
+    <install type='iso'>
+      <iso>file:///home/kashyap/virt-session/rootconf-talk-2012/illustration/vm-create/oz/test1/Fedora-16-x86_64-DVD.iso</iso>
+    </install>
+    <rootpw>testpwd</rootpw>
+  </os>
+  <description>Fedora 16</description>
+</template>
+

@@ -1,0 +1,6 @@
+time sudo ./oz-jeos-from-iso.bash take2f16
+
+real    4m33.777s
+user    0m21.540s
+sys 0m27.442s
+

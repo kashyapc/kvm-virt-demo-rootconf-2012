@@ -1,0 +1,18 @@
+$ sudo python ./hostname-edit.py 
+[sudo] password for kashyap: 
+libguestfs: trace: mount_options "" "/dev/mapper/VolGroup-lv_root" "/"
+libguestfs: trace: mount_options = 0
+libguestfs: trace: download "/export/foo.txt" "/tmp/tmp7ZfxiL/filename"
+libguestfs: trace: download = 0
+libguestfs: trace: upload "/tmp/tmp7ZfxiL/filename" "/export/foo.txt"
+libguestfs: trace: upload = 0
+libguestfs: trace: umount_all
+libguestfs: trace: umount_all = 0
+libguestfs: trace: sync
+libguestfs: trace: sync = 0
+libguestfs: trace: close
+libguestfs: trace: internal_autosync
+libguestfs: trace: internal_autosync = 0
+libguestfs: trace: kill_subprocess
+libguestfs: trace: kill_subprocess = 0
+

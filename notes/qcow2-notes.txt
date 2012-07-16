@@ -1,0 +1,9 @@
+# To convert a disk image
+$ qemu-img convert -f raw -O qcow2 -o preallocation=metadata f16t1.img f16t1.qcow2
+
+# To create a fresh disk image with preallocation
+$ qemu-img create -f qcow2 -o preallocation=metadata foo1.qcow2 8G
+
+# To fully allocate
+ls -al /path/to/disk/image.qcow2
+$ fallocate -l 8591507456 /export/vmimgs/foo1.qcow2 
